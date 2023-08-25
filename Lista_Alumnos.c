@@ -18,7 +18,8 @@ struct Nodo{
 };
 
 struct Alumno crearAlumno(char nombre[], int creditos, int semestre);
-
+void imprimirAlumno(struct Alumno alumno);
+struct Nodo *crearNodo(struct Alumno alumno);
 
 
 
@@ -48,4 +49,22 @@ struct Alumno crearAlumno(char nombre[], int creditos, int semestre) {
 	alumno.creditos = creditos;
 	alumno.semestre = semestre;
 	return alumno;
+}
+void imprimirAlumno(struct Alumno alumno) {
+	
+	printf("Nombre: %s\n", alumno.nombre);
+	printf("Créditos: %d\n", alumno.creditos);	
+	printf("Semestre: %d\n", alumno.semestre);	
+	printf("\n");
+	
+}
+
+
+
+struct Nodo *crearNodo(struct Alumno alumno) {
+	
+	struct Nodo *nuevoNodo = (struct Nodo *)malloc(sizeof(struct Nodo));	
+	nuevoNodo->alumno = alumno;	
+	nuevoNodo->siguiente = NULL;	
+	return nuevoNodo;	
 }
