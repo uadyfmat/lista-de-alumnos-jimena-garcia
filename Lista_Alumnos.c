@@ -2,14 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 typedef struct Alumno {	
 	char nombre[100];
 	int creditos;
 	int semestre;
 	
 };
-
 
 struct Nodo{
 	struct Alumno alumno;
@@ -20,8 +18,8 @@ struct Nodo{
 struct Alumno crearAlumno(char nombre[], int creditos, int semestre);
 void imprimirAlumno(struct Alumno alumno);
 struct Nodo *crearNodo(struct Alumno alumno);
-
-
+int insertarNodoOrdenadoCreditos(struct Nodo **lista, struct Nodo *nuevoNodo);
+void imprimirLista(struct Nodo *lista);
 
 int main() {
 	
@@ -30,8 +28,6 @@ int main() {
 	struct Alumno alumno3 = crearAlumno("Carlos Gomez Zapata", 150, 6);
 	struct Alumno alumno4 = crearAlumno("Ana Rodriguez Villanueva", 80, 3);
 	struct Alumno alumno5 = crearAlumno("Luis Martinez Chay", 110, 5);
-	
-	
 	struct Nodo *lista = NULL;
 	
 	insertarNodoOrdenadoCreditos(&lista, crearNodo(alumno1));
@@ -50,8 +46,7 @@ struct Alumno crearAlumno(char nombre[], int creditos, int semestre) {
 	alumno.semestre = semestre;
 	return alumno;
 }
-void imprimirAlumno(struct Alumno alumno) {
-	
+void imprimirAlumno(struct Alumno alumno) {	
 	printf("Nombre: %s\n", alumno.nombre);
 	printf("Créditos: %d\n", alumno.creditos);	
 	printf("Semestre: %d\n", alumno.semestre);	
@@ -59,12 +54,49 @@ void imprimirAlumno(struct Alumno alumno) {
 	
 }
 
-
-
-struct Nodo *crearNodo(struct Alumno alumno) {
-	
+struct Nodo *crearNodo(struct Alumno alumno) {	
 	struct Nodo *nuevoNodo = (struct Nodo *)malloc(sizeof(struct Nodo));	
 	nuevoNodo->alumno = alumno;	
 	nuevoNodo->siguiente = NULL;	
 	return nuevoNodo;	
+}
+
+void imprimirAlumno(struct Alumno alumno) {	
+	printf("Nombre: %s\n", alumno.nombre);
+	printf("Créditos: %d\n", alumno.creditos);	
+	printf("Semestre: %d\n", alumno.semestre);	
+	printf("\n");
+}
+
+struct Nodo *crearNodo(struct Alumno alumno) {
+	struct Nodo *nuevoNodo = (struct Nodo *)malloc(sizeof(struct Nodo));	
+	nuevoNodo->alumno = alumno;	
+	nuevoNodo->siguiente = NULL;	
+	return nuevoNodo;	
+}
+
+int insertarNodoOrdenadoCreditos(struct Nodo **lista, struct Nodo *nuevoNodo) {
+	if (*lista == NULL || nuevoNodo->alumno.creditos >= (*lista)->alumno.creditos) {	
+		nuevoNodo->siguiente = *lista;		
+		*lista = nuevoNodo;		
+		return 1;	
+	}
+	
+	struct Nodo *actual = *lista;	
+	while (actual->siguiente != NULL && actual->siguiente->alumno.creditos > nuevoNodo->alumno.creditos) {		
+		actual = actual->siguiente;		
+	}
+	
+	nuevoNodo->siguiente = actual->siguiente;
+	actual->siguiente = nuevoNodo;	
+	return 1;
+	
+}
+
+void imprimirLista(struct Nodo *lista) {	
+	struct Nodo *actual = lista;	
+	while (actual != NULL) {		
+		imprimirAlumno(actual->alumno);		
+		actual = actual->siguiente;		
+	}	
 }
