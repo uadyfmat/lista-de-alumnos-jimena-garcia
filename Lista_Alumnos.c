@@ -47,28 +47,11 @@ struct Alumno crearAlumno(char nombre[], int creditos, int semestre) {
 	return alumno;
 }
 void imprimirAlumno(struct Alumno alumno) {	
-	printf("Nombre: %s\n", alumno.nombre);
-	printf("Créditos: %d\n", alumno.creditos);	
-	printf("Semestre: %d\n", alumno.semestre);	
+	printf("Nombre: %s, Creditos: %d, Semestre: %d", alumno.nombre, alumno.creditos, alumno.semestre);	
 	printf("\n");
-	
 }
 
 struct Nodo *crearNodo(struct Alumno alumno) {	
-	struct Nodo *nuevoNodo = (struct Nodo *)malloc(sizeof(struct Nodo));	
-	nuevoNodo->alumno = alumno;	
-	nuevoNodo->siguiente = NULL;	
-	return nuevoNodo;	
-}
-
-void imprimirAlumno(struct Alumno alumno) {	
-	printf("Nombre: %s\n", alumno.nombre);
-	printf("Créditos: %d\n", alumno.creditos);	
-	printf("Semestre: %d\n", alumno.semestre);	
-	printf("\n");
-}
-
-struct Nodo *crearNodo(struct Alumno alumno) {
 	struct Nodo *nuevoNodo = (struct Nodo *)malloc(sizeof(struct Nodo));	
 	nuevoNodo->alumno = alumno;	
 	nuevoNodo->siguiente = NULL;	
